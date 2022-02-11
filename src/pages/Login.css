@@ -1,0 +1,33 @@
+.mainContainer{
+    min-width: 100vw;
+    min-height: 100vh;
+    background: linear-gradient(#e4e4e7,#27272a);
+    justify-content:flex-start;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    
+}
+
+.errorContainer{
+    
+}
+
+.inputContainer{
+    margin-bottom: 50px;
+}
+
+.textInput{
+    width: 80vw;
+    height: 20px;
+    border-radius: 20px;
+    align-self: center;
+    border-color: cyan;
+}
+
+.logoConatiner {
+    height: 50px;
+    width: 100px;
+}
