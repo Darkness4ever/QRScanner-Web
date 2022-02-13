@@ -1,6 +1,9 @@
 import React,{useState,useEffect} from 'react'
 import { useNavigate } from "react-router-dom";
 import BarcodeScannerComponent from "react-qr-barcode-scanner";
+import LogoutIcon from '@mui/icons-material/Logout';
+import 'font-awesome/css/font-awesome.min.css';
+import Loader from "react-js-loader";
 import $api from "../api"
 import './Home.css'
 
@@ -13,16 +16,20 @@ const HomeScreen = () => {
     const [eventID, setEventID] = useState(null);
     const [readPointId, setReadPointId] = useState(null);
     const [name, setName] = useState('');
-    const [company, setCompany] = useState('');
-    const [title, setTitle] = useState('')
+    const [company, setCompany] = useState('Marvel');
+    const [title, setTitle] = useState('Spiderman')
     const [isResultVisible, setIsResultVisible] = useState(false)
     const [isError, setIsError] = useState(false)
+    const [errorMessage, setErrorMessage] = useState('')
     const [isLoading, setIsLoading] = useState(false);
+    const [buttonText, setButtonText] = useState('Scan QR')
+    const [isCloseScan, setIsCloseScan] = useState(false)
 
     let navigate = useNavigate();
 
     
     useEffect(() => {
+        window.scroll(0,0)
         if(sessionStorage.getItem('fName') === null) {
             navigate('/')
         }
@@ -33,15 +40,42 @@ const HomeScreen = () => {
         })
     },[])
 
+    const handleScanButton = (val) => {
+        
+        if(val){
+        setShowScanner(true)
+        setErrorMessage('')
+        setButtonText('Close Scan')
+        }else {
+            setShowScanner(false)
+            setErrorMessage('')
+            setButtonText('Scan QR')
+        }
+        setIsCloseScan(!isCloseScan)
+        console.log('val : ', isCloseScan)
+    }
+
+   const handleLogout = () => {
+    sessionStorage.clear()
+    navigate('/')
+   } 
+
   return (
 
     <div className='mainContainer'>
         <div className='headerContainer'>
-            <text style={{fontSize : '60px', fontWeight:'bold',color:'white'}}>{`Hello ${personName} !!`}</text>
+            <div onClick = {() => handleLogout()} style = {{flex : '0.5', alignSelf : 'flex-end', margin : '10px 10px 10px 0px', }}>
+                <LogoutIcon />
+                
+            </div>
+            <text style={{fontSize : '60px', fontWeight:'bold',color:'white', alignSelf : 'center', flex : "1", }}>{`Hello ${personName} !`}</text>
         </div>
 
         <div style={{alignItems : 'center', justifyContent:'center', display:'flex', marginTop:'50px'}}>
-            <button className='scanButton' onClick = {() => setShowScanner(true)}>Scan QR</button>
+            <button className='scanButton' onClick = {() => {
+                handleScanButton(!isCloseScan)
+            }
+                }>{buttonText}</button>
         </div>
 
         {showScanner && (
@@ -51,12 +85,15 @@ const HomeScreen = () => {
                 height={'60%'}
                 onUpdate={(err, result) => {
                     if (result) {
+                        setErrorMessage('')
                         setName('')
                         setTitle('')
                         setCompany('')
                         setScanned(true);
                         setIsLoading(true)
                         setIsResultVisible('true')
+                        handleScanButton(!isCloseScan)
+                        
                         setText(result);
                         const payload = {
                           itemId : eventID,
@@ -88,7 +125,11 @@ const HomeScreen = () => {
                           }
                           else {
                             setIsError(true)
-                            alert('User Not registered')
+                            setErrorMessage('User is not registered')
+                            setIsResultVisible(false)
+                            setName('')
+                            setTitle('')
+                            setCompany('')
                             console.log('User is not registered')
                           }
                         })
@@ -103,10 +144,41 @@ const HomeScreen = () => {
         </div>
         )}
 
-        {/* <div style={{alignItems : 'center', justifyContent:'center', display:'flex', marginTop:'150px'}}>
+        {isError && !showScanner && !isLoading && !isResultVisible &&(
+            <div style={{alignItems : 'center', justifyContent:'center', display:'flex', marginTop:'150px'}}>
                 <text style={{fontSize : '30px', fontWeight : 'bold', color : 'ghostwhite'}}>
-                    User is not registered
+                    {errorMessage}
                 </text>
+            </div>
+        )}
+        {!showScanner && isResultVisible && !isError && !isLoading && (
+            <div  style={{alignItems : 'center', justifyContent:'center', display:'flex', marginTop:'150px', flexDirection : 'column'}}>
+                <text style={{fontSize : '30px', fontWeight : 'bold', color : 'ghostwhite'}}>{isError ? '' : 'Welcome'}</text>
+                <text style={{fontSize : '30px', fontWeight : 'bold', color : 'ghostwhite'}}>{name}</text>
+                {title === '' ? 
+                        <text style={{fontSize : '30px', fontWeight : 'bold', color : 'ghostwhite'}}>{company}</text>  :
+                        
+                            <text style={{fontSize : '30px', fontWeight : 'bold', color : 'ghostwhite'}}>{`${title}, ${company}`}</text>
+                        
+                }
+        </div>
+        )}
+
+        {isLoading && (
+            <div>
+                <Loader type = 'spinner-circle' size = {70} />
+            </div>
+        )}
+
+        {/* <div  style={{alignItems : 'center', justifyContent:'center', display:'flex', marginTop:'150px', flexDirection : 'column'}}>
+            <text style={{fontSize : '30px', fontWeight : 'bold', color : 'ghostwhite'}}>Welcome</text>
+            <text style={{fontSize : '30px', fontWeight : 'bold', color : 'ghostwhite'}}>Tom Holland</text>
+            {title === '' ? 
+                      <text style={{fontSize : '30px', fontWeight : 'bold', color : 'ghostwhite'}}>{company}</text>  :
+                      
+                        <text style={{fontSize : '30px', fontWeight : 'bold', color : 'ghostwhite'}}>{`${title}, ${company}`}</text>
+                      
+            }
         </div> */}
     </div>
   )

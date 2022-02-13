@@ -19,12 +19,13 @@
     border-bottom-right-radius: 50px;
     opacity: 0.7;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center; */
+    /* align-items: center; */
+    flex-direction: column;
 }
 
 .scanButton{
-    width: 40vw;
+    width: 55vw;
     height: 50px;
     border-radius: 20px;
     font-size:xx-large;

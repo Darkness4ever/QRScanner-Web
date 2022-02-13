@@ -18,7 +18,8 @@ const [isLoading, setIsLoading] = useState(false)
 
 useEffect(() => {
     // console.log('FN', sessionStorage.getItem('fName'))
-    if(sessionStorage.getItem('fName') !== null) {
+    window.scroll(0,0)
+    if(sessionStorage.getItem('fName') != null) {
         navigate('/home', {replace : true})
     }
 },[])
@@ -73,7 +74,8 @@ const handleSubmit = (event) => {
         sessionStorage.setItem('personId', personId)
         sessionStorage.setItem('fName',fName)
         console.log('fName', fName)
-        console.log('PID : ', personId)
+        // console.log('PID : ', personId)
+        // alert(fName)
         // navigation.navigate('Home', {
         //     personId,
         //     fName
@@ -102,12 +104,15 @@ const handleSubmit = (event) => {
         <div className='imageContainer'>
             <img src = {require('../assets/logo1.png')} style={{height : 300, width: 300}} alt='logo'/>
         </div>
-
+        <div style={{display : 'flex', justifyContent : 'center', alignItems : 'center', marginBottom:'10px', flexDirection : 'column'}}>
+            <text style={{fontSize : '50px', marginRight : '10px', color : 'darkblue', fontWeight : 'bold'}}>EventTraQ </text>
+            <text style={{fontSize : '30px', color : 'darkblue'}}> by AAFRID</text>
+        </div>
         <div className='errorContainer'>
-            <text>{errorMessage}</text>
+            <text style={{color :'red'}}>{errorMessage}</text>
         </div>
         <form onSubmit={handleSubmit}>
-            <div className='inputContainer'>
+            <div className='inputContainer' style={{marginBottom:'30px'}}>
                 <input type='text' placeholder='Enter username' className='textInput' onChange={handleUsername} value={userName} required/>
             </div>
 
@@ -118,7 +123,7 @@ const handleSubmit = (event) => {
             <div style={{alignItems : 'center', justifyContent:'center', display:'flex'}}>
                 {/* <button style={{width : '80vw', height : '40px', fontSize :'x-large', borderRadius : '20px', borderColor : 'cyan'}}>Login</button> */}
                 {!isLoading && (
-                <input type='submit' value='Login' style={{width : '80vw', height : '40px', fontSize :'x-large', borderRadius : '20px', borderColor : 'cyan'}}/>
+                <input type='submit' value='Login' style={{width : '80vw', height : '40px', fontSize :'x-large', borderRadius : '20px', backgroundColor : 'cyan'}}/>
 
                 )}
                 {isLoading && (
