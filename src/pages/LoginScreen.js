@@ -117,7 +117,7 @@ const handleSubmit = (event) => {
             </div>
 
             <div className='inputContainer'>
-                <input type='text' placeholder='Enter password' className='textInput' onChange={handlePassword} value={password} required/>
+                <input type='password' placeholder='Enter password' className='textInput' onChange={handlePassword} value={password} required/>
             </div>
 
             <div style={{alignItems : 'center', justifyContent:'center', display:'flex'}}>

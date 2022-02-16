@@ -24,6 +24,7 @@ const HomeScreen = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [buttonText, setButtonText] = useState('Scan QR')
     const [isCloseScan, setIsCloseScan] = useState(false)
+    const [welcomeMessage, setWelcomeMessage] = useState('')
 
     let navigate = useNavigate();
 
@@ -51,7 +52,11 @@ const HomeScreen = () => {
             setErrorMessage('')
             setButtonText('Scan QR')
         }
+        setName('')
+        setCompany('')
+        setTitle('')
         setIsCloseScan(!isCloseScan)
+        setWelcomeMessage('')
         console.log('val : ', isCloseScan)
     }
 
@@ -65,7 +70,7 @@ const HomeScreen = () => {
     <div className='mainContainer'>
         <div className='headerContainer'>
             <div onClick = {() => handleLogout()} style = {{flex : '0.5', alignSelf : 'flex-end', margin : '10px 10px 10px 0px', }}>
-                <LogoutIcon />
+                <LogoutIcon fontSize='large' />
                 
             </div>
             <text style={{fontSize : '60px', fontWeight:'bold',color:'white', alignSelf : 'center', flex : "1", }}>{`Hello ${personName} !`}</text>
@@ -105,7 +110,7 @@ const HomeScreen = () => {
                           itemInstanceId : null,
                           transactionType : 'TRTP002',
                           isDuplicateTransactionAllowed : false,
-                          points : 0,
+                          points : 5,
                           isverify : true
                         }
                         console.log('p : ', payload)
@@ -121,6 +126,7 @@ const HomeScreen = () => {
                               setCompany(entry.attributeValue)
                               if(entry.attributeName === 'Title')
                               setTitle(entry.attributeValue)
+                              setWelcomeMessage('Welcome')
                             })
                           }
                           else {
@@ -130,6 +136,7 @@ const HomeScreen = () => {
                             setName('')
                             setTitle('')
                             setCompany('')
+                            setWelcomeMessage('Welcome')
                             console.log('User is not registered')
                           }
                         })
@@ -153,7 +160,7 @@ const HomeScreen = () => {
         )}
         {!showScanner && isResultVisible && !isError && !isLoading && (
             <div  style={{alignItems : 'center', justifyContent:'center', display:'flex', marginTop:'150px', flexDirection : 'column'}}>
-                <text style={{fontSize : '30px', fontWeight : 'bold', color : 'ghostwhite'}}>{isError ? '' : 'Welcome'}</text>
+                <text style={{fontSize : '30px', fontWeight : 'bold', color : 'ghostwhite'}}>{isError ? '' : `${welcomeMessage}`}</text>
                 <text style={{fontSize : '30px', fontWeight : 'bold', color : 'ghostwhite'}}>{name}</text>
                 {title === '' ? 
                         <text style={{fontSize : '30px', fontWeight : 'bold', color : 'ghostwhite'}}>{company}</text>  :
