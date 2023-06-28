@@ -105,7 +105,7 @@ const handleSubmit = (event) => {
             <img src = {require('../assets/logo1.png')} style={{height : 300, width: 300}} alt='logo'/>
         </div>
         <div style={{display : 'flex', justifyContent : 'center', alignItems : 'center', marginBottom:'10px', flexDirection : 'column'}}>
-            <text style={{fontSize : '50px', marginRight : '10px', color : 'darkblue', fontWeight : 'bold'}}>EventTraQ </text>
+            {/* <text style={{fontSize : '50px', marginRight : '10px', color : 'darkblue', fontWeight : 'bold'}}>AarfidEvents </text> */}
             <text style={{fontSize : '30px', color : 'darkblue'}}> by AAFRID</text>
         </div>
         <div className='errorContainer'>

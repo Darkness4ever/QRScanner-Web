@@ -19,7 +19,7 @@ const authenticateUser = ({ userName, password }) =>{
 //     },
 //   });
 
-    return axios.post("https://eventapp.azurewebsites.net//api/person/ValidateAndGetPerson/", 
+    return axios.post("https://eventappnomore.azurewebsites.net///api/person/ValidateAndGetPerson/", 
     {
         username : userName,
         oldPassword: password,
@@ -37,7 +37,7 @@ const authenticateUser = ({ userName, password }) =>{
 
 const getDetails = (personId) => {
     // console.log('personId : ', personId)
-    return axios.get(`https://eventapp.azurewebsites.net//api/person/GetVendorEvents/${personId}/2`, {
+    return axios.get(`https://eventappnomore.azurewebsites.net///api/person/GetVendorEvents/${personId}/2`, {
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
@@ -50,7 +50,7 @@ const getDetails = (personId) => {
 const addTagTransaction = (payload) => {
     console.log('payload inside : ', payload)
 
-    return axios.post('https://eventapp.azurewebsites.net//api/item/AddTagTransaction', payload, {
+    return axios.post('https://eventappnomore.azurewebsites.net///api/item/AddTagTransaction', payload, {
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json",

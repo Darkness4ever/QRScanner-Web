@@ -24,6 +24,14 @@
     flex-direction: column;
 }
 
+.headerContainerFirstRow{
+    display: flex;
+    flex: 1;
+    align-items: flex-start;
+    justify-content: space-between;
+    /* border:1px solid red; */
+}
+
 .scanButton{
     width: 65vw;
     height: 50px;
@@ -42,3 +50,12 @@
     flex: 1;
     margin-top: 30vh
 }
+
+.qrscannerbox {
+    /* position: inherit !important */
+}
+
+section>section {
+    position: inherit !important
+}
+   
